@@ -18,12 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
-Route::get('/books', [BookController::class, 'index'])->name('books');
-Route::get('/book/add', [BookController::class, 'create'])->name('new.book');
-Route::post('/book', [BookController::class, 'store'])->name('add.book');
+Route::get('dashboard', [BookController::class, 'dashboard'])->name('dashboard')->middleware(['auth']);
+
+Route::get('books', [BookController::class, 'index'])->name('books');
+Route::get('book/{id}', [BookController::class, 'show'])->name('book.show');
+Route::get('create/book', [BookController::class, 'create'])->name('book.create')->middleware(['auth']);
+Route::post('book', [BookController::class, 'store'])->name('book.store')->middleware(['auth']);
+
+Route::post('comment',[CommentController::class,'store'])->name('comment.store');
 
 require __DIR__.'/auth.php';

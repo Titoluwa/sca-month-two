@@ -7,19 +7,29 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+    public function dashboard()
+    {
+        $books = Book::where('author_id', auth()->user()->id)->get();
+        // dd($books);
+        return view('dashboard', compact('books'));
+    }
     public function index()
     {
         $books = Book::all();
         return view('books.index', compact('books'));
     }
+    public function show($id)
+    {
+        $book = Book::where('id', $id)->first();
 
+        return view('books.show', compact('book'));
+    }
     public function create()
     {
         return view('books.create');
     }
     public function store(Request $request)
     {
-        // dd($request->all());
         $book = Book::create($this->validateRequest());
         if($request->hasFile('book_cover'))
         {
@@ -29,6 +39,7 @@ class BookController extends Controller
         }
         $book->author_id = auth()->user()->id;
         $book->save();
+
         return back()->with('message',"New Book Added!");
     }
     private function validateRequest()

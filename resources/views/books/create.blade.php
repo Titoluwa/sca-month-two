@@ -18,9 +18,9 @@
                   <!-- Validation Errors -->
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-                    <form class="px-80" method="POST" action="{{ route('add.book') }}" enctype="multipart/form-data">
+                    <form class="px-80" method="POST" action="{{ route('book.store') }}" enctype="multipart/form-data">
                         @csrf
-                            <p class="m-4 text-center text-xl text-purple-600">Add Book</p>
+                            <p class="m-4 text-center text-xl text-purple-600">Add a Book</p>
                             <input type="hidden" name='author_id' value="{{ Auth::user()->id }}">
                         <!-- Name -->
                         <div>
