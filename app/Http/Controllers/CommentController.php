@@ -9,6 +9,7 @@ class CommentController extends Controller
 {
     public function store(Request $request)
     {
+        // dd($request->all());
         $comment = new Comment($request->all());
         $comment->save();
 

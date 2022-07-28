@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,9 @@ Route::get('books', [BookController::class, 'index'])->name('books');
 Route::get('book/{id}', [BookController::class, 'show'])->name('book.show');
 Route::get('create/book', [BookController::class, 'create'])->name('book.create')->middleware(['auth']);
 Route::post('book', [BookController::class, 'store'])->name('book.store')->middleware(['auth']);
+Route::get('book/edit/{id}', [BookController::class, 'edit'])->name('book.edit')->middleware(['auth']);
+Route::put('book/update', [BookController::class, 'update'])->name('book.update')->middleware(['auth']);
+Route::delete('book/delete/{id}', [BookController::class, 'destory'])->name('book.destory')->middleware(['auth']);
 
 Route::post('comment',[CommentController::class,'store'])->name('comment.store');
 

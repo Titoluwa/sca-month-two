@@ -18,20 +18,32 @@
                     </div>
                     {{-- <p class="my-3 mx-96 py-3 text-center bg-purple-200 border-2 border-purple-600 rounded-md  hover:bg-purple-600">View My Books</p> --}}
                     @if(!empty($books))
-                    <div class="grid grid-cols-2 gap-3">
+                    <div class="grid grid-cols-1">
                         @foreach($books as $book)
 
-                            <a href="/book/{{$book->id}}" class="flex m-3 p-4 bg-gray-100 rounded-lg hover:bg-gray-200 hover:shadow-xl focus:bg-gray-200 focus:shadow-xl focus:outline-none">
-
+                            <div class="flex m-3 p-4 bg-gray-100 rounded-lg hover:bg-gray-200 hover:shadow-xl focus:bg-gray-200">
                                 <div class="flex-none bg-purple-200 text-gray-500">
                                     <img class="h-44 w-32" src="{{asset('storage/'.$book->book_cover)}}" alt="Book cover">
                                 </div>
-                                <div class="flex-initial mx-6">
-                                    <p class="mt-5 text-lg leading-6 font-medium text-purple-700">{{$book->name}}</p>
-                                    <p class="text-justify mt-2 text-base text-gray-600">{{$book->description}}</p>
-                                </div>
-                            </a>
+                                <div class="flex-initial mx-6 mt-5">
+                                    <a href="/book/{{$book->id}}" class="text-lg leading-6 font-medium text-purple-700 focus:text-indigo-800 hover:text-indigo-800 focus:outline-none hover:shadow-md focus:shadow-md">{{$book->name}}</a>
+                                    <p class="text-justify mt-2 text-base text-gray-600">
+                                        {{$book->description}}
+                                        <br> <br>
+                                        <a href="book/edit/{{$book->id}}" class="py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                                            Edit
+                                        </a>
+                                        <form action="book/delete/{{$book->id}}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="mt-4 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                Delete
+                                            </button>
+                                        </form>
 
+                                    </p>
+                                </div>
+                            </div>
                         @endforeach
                     </div>
                     @else

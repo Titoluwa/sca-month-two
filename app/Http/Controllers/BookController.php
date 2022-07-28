@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
     public function dashboard()
     {
-        $books = Book::where('author_id', auth()->user()->id)->get();
-        // dd($books);
+        $books = Book::where('author_id', auth()->user()->id)->orderBy('id', 'desc')->get();
+
         return view('dashboard', compact('books'));
     }
     public function index()
@@ -20,9 +21,9 @@ class BookController extends Controller
     }
     public function show($id)
     {
-        $book = Book::where('id', $id)->first();
-
-        return view('books.show', compact('book'));
+        $book = Book::findorFail($id);
+        $comments = Comment::where('book_id', $id)->get();
+        return view('books.show', compact('book', 'comments'));
     }
     public function create()
     {
@@ -35,17 +36,18 @@ class BookController extends Controller
         {
             $book->book_cover = $request->file('book_cover')->store('book_cover', 'public');
         } else{
-            $book->book_cover = 'default.img';
+            $book->book_cover = 'book_cover/default.jpg';
         }
         $book->author_id = auth()->user()->id;
         $book->save();
 
-        return back()->with('message',"New Book Added!");
+        return redirect('dashboard');
+        // return back()->with('message',"New Book Added!");
     }
     private function validateRequest()
     {
         return request()->validate([
-            'author_id' => 'required',
+            'author_id' => 'integer',
             'name'=> 'required|string',
             'book_cover' => 'image|nullable|max:1999',
             'publisher' => 'required|string',
@@ -53,12 +55,30 @@ class BookController extends Controller
             'description' =>'string',
         ]);
     }
-    public function edit()
+    public function edit($id)
     {
-        return view('books.edit');
+        $book = Book::findorFail($id);
+        return view('books.edit', compact('book'));
     }
-    public function destroy()
+    public function update(Request $request)
     {
+        $book = Book::findorFail($request->id);
+        $book->name = $request->name;
+        $book->publisher = $request->publisher;
+        $book->publication_year = $request->publication_year;
+        $book->description = $request->description;
+        if($request->hasFile('book_cover'))
+        {
+            $book->book_cover = $request->file('book_cover')->store('book_cover', 'public');
+        }
+        $book->update();
 
+        return back()->with('message',"Book has been Updated!");
+    }
+    public function destory($id)
+    {
+        $book = Book::findorFail($id);
+        $book->delete();
+        return back()->with('message',"Book Deleted!");
     }
 }
