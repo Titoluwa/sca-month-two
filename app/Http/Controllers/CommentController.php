@@ -15,4 +15,10 @@ class CommentController extends Controller
 
         return back()->with('message',"Comment Added!");
     }
+    public function destory($id)
+    {
+        $comment = Comment::findorFail($id);
+        $comment->delete();
+        return back()->with('message', "Comment Deleted!");
+    }
 }

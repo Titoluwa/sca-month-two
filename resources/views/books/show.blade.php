@@ -8,7 +8,7 @@
 <div class="py-12">
     <div class="bg-white max-w-2xl mx-auto grid items-start grid-cols-1 gap-y-16 gap-x-8 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8 lg:grid-cols-2 shadow-sm sm:rounded-lg border-b border-gray-200">
         <div class="">
-            <h2 class="text-3xl font-extrabold tracking-tight text-purple-700 sm:text-4xl">{{$book->name}}</h2>
+            <h2 class="text-3xl font-extrabold tracking-tight text-purple-700 sm:text-4xl">{{$book->name}} </h2><span class="mt-2 font-bold text-gray-400">Written by: <span class="text-purple-500">{{$book->author->name}}</span></span>
             <p class="mt-4 text-gray-500">{{$book->description}}</p>
 
             <dl class="mt-6 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2 sm:gap-y-8 lg:gap-x-8">
@@ -32,7 +32,7 @@
                 <div class="border-t border-gray-200 pt-4">
                     <dt class="font-medium text-gray-900">Comments</dt>
                     <ol class="list-decimal list-inside">
-                        @foreach ($comments as $comment)
+                        @foreach ($book->comments as $comment)
                             <li class="mt-2 text-sm text-gray-500">{{$comment->comment}}</li>
                         @endforeach
                     </ol>

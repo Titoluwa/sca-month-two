@@ -34,5 +34,6 @@ Route::put('book/update', [BookController::class, 'update'])->name('book.update'
 Route::delete('book/delete/{id}', [BookController::class, 'destory'])->name('book.destory')->middleware(['auth']);
 
 Route::post('comment',[CommentController::class,'store'])->name('comment.store');
+Route::delete('comment/delete/{id}', [CommentController::class, 'destory'])->name('comment.destory')->middleware(['auth']);
 
 require __DIR__.'/auth.php';

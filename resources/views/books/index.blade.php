@@ -26,6 +26,7 @@
                                 </div>
                                 <div class="flex-initial mx-6">
                                     <p class="mt-5 text-lg leading-6 font-medium text-purple-700">{{$book->name}}</p>
+                                    <span class="mt-2 text-base text-gray-400">Written by: <span class="text-purple-500">{{$book->author->name}}</span></span>
                                     <p class="text-justify mt-2 text-base text-gray-600">{{$book->description}}</p>
                                 </div>
                             </a>

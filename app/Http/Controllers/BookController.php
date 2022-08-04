@@ -22,8 +22,8 @@ class BookController extends Controller
     public function show($id)
     {
         $book = Book::findorFail($id);
-        $comments = Comment::where('book_id', $id)->get();
-        return view('books.show', compact('book', 'comments'));
+        // $comments = Comment::where('book_id', $id)->get();
+        return view('books.show', compact('book'));
     }
     public function create()
     {
