@@ -26,14 +26,14 @@ Route::get('/', function () {
 Route::get('dashboard', [BookController::class, 'dashboard'])->name('dashboard')->middleware(['auth']);
 
 Route::get('books', [BookController::class, 'index'])->name('books');
-Route::get('book/{id}', [BookController::class, 'show'])->name('book.show');
+Route::get('book/{id}', [BookController::class, 'show'])->name('book.show')->middleware(['auth']);
 Route::get('create/book', [BookController::class, 'create'])->name('book.create')->middleware(['auth']);
 Route::post('book', [BookController::class, 'store'])->name('book.store')->middleware(['auth']);
 Route::get('book/edit/{id}', [BookController::class, 'edit'])->name('book.edit')->middleware(['auth']);
 Route::put('book/update', [BookController::class, 'update'])->name('book.update')->middleware(['auth']);
 Route::delete('book/delete/{id}', [BookController::class, 'destory'])->name('book.destory')->middleware(['auth']);
 
-Route::post('comment',[CommentController::class,'store'])->name('comment.store');
+Route::post('comment',[CommentController::class,'store'])->name('comment.store')->middleware(['auth']);
 Route::delete('comment/delete/{id}', [CommentController::class, 'destory'])->name('comment.destory')->middleware(['auth']);
 
 require __DIR__.'/auth.php';

@@ -9,16 +9,16 @@ class CommentController extends Controller
 {
     public function store(Request $request)
     {
-        // dd($request->all());
         $comment = new Comment($request->all());
         $comment->save();
 
-        return back()->with('message',"Comment Added!");
+        return back()->with('new_comment_message',"New Comment Added!");
     }
     public function destory($id)
     {
+        // dd($id);
         $comment = Comment::findorFail($id);
         $comment->delete();
-        return back()->with('message', "Comment Deleted!");
+        return back()->with('comment_delete_message', "Comment Deleted!");
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Book;
+use App\Models\Comment;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,4 +44,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Book::class);
     }
+    // public function comments()
+    // {
+    //      return $this->hasMany(Comment::class);
+    // }
 }

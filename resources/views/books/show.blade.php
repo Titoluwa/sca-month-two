@@ -21,9 +21,16 @@
                     <dt class="font-medium text-gray-900">Year of Publication</dt>
                     <dd class="mt-2 text-sm text-gray-500">{{ $book->publication_year }}</dd>
                 </div>
-                @if(session()->has("message"))
+                @if(session()->has("new_comment_message"))
                     <div class="p-3 bg-purple-200">
                         <p class="text-center font-semibold text-purple-600 text-lg">New Comment Added!</p>
+                    </div>
+                    <div>
+
+                    </div>
+                @elseif(session()->has("comment_delete_message"))
+                    <div class="p-3 bg-pink-200">
+                        <p class="text-center font-semibold text-pink-600 text-lg">Comment Deleted!</p>
                     </div>
                     <div>
 
@@ -34,6 +41,23 @@
                     <ol class="list-decimal list-inside">
                         @foreach ($book->comments as $comment)
                             <li class="mt-2 text-sm text-gray-500">{{$comment->comment}}</li>
+                            @if($comment->user_id == auth()->user()->id)
+                                <form action="/comment/delete/{{$comment->id}}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="mt-2 ml-52 py-1 px-2 border border-transparent text-sm font-sm rounded text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                        delete
+                                    </button>
+                                </form>
+                            @elseif($book->author_id == auth()->user()->id)
+                                <form action="/comment/delete/{{$comment->id}}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="mt-2 ml-52 py-1 px-2 border border-transparent text-sm font-sm rounded text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                        delete
+                                    </button>
+                                </form>
+                            @endif
                         @endforeach
                     </ol>
                 </div>
@@ -43,8 +67,9 @@
                         <form action="/comment" method="POST">
                             @csrf
                             <input type="hidden" name="book_id" id="book_id" value="{{$book->id}}">
+                            <input type="hidden" name="user_id" id="user_id" value="{{auth()->user()->id}}">
                             <input type="text" name="comment" id="comment" class="mt-1 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 block w-full px-3 sm:text-sm border-gray-300 rounded-md">
-                            <button type="submit" class="mt-3 ml-52 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Send</button>
+                            <button type="submit" class="mt-3 ml-52 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Add</button>
                         </form>
                     </div>
                 </div>
