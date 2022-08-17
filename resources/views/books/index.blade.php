@@ -22,7 +22,7 @@
                             <a href="/book/{{$book->id}}" class="flex m-3 p-4 bg-gray-100 rounded-lg hover:bg-gray-200 hover:shadow-xl focus:bg-gray-200 focus:shadow-xl focus:outline-none">
 
                                 <div class="flex-none bg-purple-200 text-gray-500">
-                                    <img class="h-44 w-32" src="{{asset('public/storage/'.$book->book_cover)}}" alt="Book cover">
+                                    <img class="h-44 w-32" src="{{asset('storage/'.$book->book_cover)}}" alt="Book cover">
                                 </div>
                                 <div class="flex-initial mx-6">
                                     <p class="mt-5 text-lg leading-6 font-medium text-purple-700">{{$book->name}}</p>

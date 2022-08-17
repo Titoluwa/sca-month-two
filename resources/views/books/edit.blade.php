@@ -40,7 +40,7 @@
                         <!-- Book cover -->
                         <div class="mt-4">
                             <x-label for="book_cover" :value="__('Book Cover')" />
-                            <img class="h-44 w-32 m-3" src="{{asset('public/storage/'.$book->book_cover)}}" alt="Book cover">
+                            <img class="h-44 w-32 m-3" src="{{asset('storage//'.$book->book_cover)}}" alt="Book cover">
                             <x-input id="book_cover" class="block mt-1 w-full" type="file" name="book_cover"/>
                         </div>
 
