@@ -7,6 +7,10 @@ module.exports = {
         './resources/views/**/*.blade.php',
     ],
 
+    darkMode: [
+        'class', '[data-mode="dark"]'
+    ],
+    
     theme: {
         extend: {
             fontFamily: {
@@ -14,6 +18,5 @@ module.exports = {
             },
         },
     },
-
     plugins: [require('@tailwindcss/forms')],
 };
