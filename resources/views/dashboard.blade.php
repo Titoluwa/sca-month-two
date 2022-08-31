@@ -17,13 +17,13 @@
                         </a>
                     </div>
                     {{-- <p class="my-3 mx-96 py-3 text-center bg-purple-200 border-2 border-purple-600 rounded-md  hover:bg-purple-600">View My Books</p> --}}
-                    @if(!empty($books))
+                    @if(count($books) != 0)
                     <div class="grid grid-cols-1">
                         @foreach($books as $book)
 
                             <div class="flex m-3 p-4 bg-gray-100 rounded-lg hover:bg-gray-200 hover:shadow-xl focus:bg-gray-200">
                                 <div class="flex-none bg-purple-200 text-gray-500">
-                                    <img class="h-44 w-32" src="{{asset('storage/'.$book->book_cover)}}" alt="Book cover">
+                                    <img class="h-44 w-32" src="{{ url('public/book_cover/'.$book->book_cover) }}" alt="Book cover">
                                 </div>
                                 <div class="flex-initial mx-6 mt-5">
                                     <a href="/book/{{$book->id}}" class="text-lg leading-6 font-medium text-purple-700 focus:text-indigo-800 hover:text-indigo-800 focus:outline-none hover:shadow-md focus:shadow-md">{{$book->name}}</a>
@@ -47,7 +47,7 @@
                         @endforeach
                     </div>
                     @else
-                        <p class="py-8">No Books Found</p>
+                        <p class="p-6 text-purple-700 font-bold text-xl ">No Books Found</p>
                     @endif
                 </div>
             </div>

@@ -29,21 +29,6 @@ class BookController extends Controller
     {
         return view('books.create');
     }
-    public function store(Request $request)
-    {
-        $book = Book::create($this->validateRequest());
-        if($request->hasFile('book_cover'))
-        {
-            $book->book_cover = $request->file('book_cover')->store('book_cover', 'public');
-        } else{
-            $book->book_cover = 'book_cover/default.jpg';
-        }
-        $book->author_id = auth()->user()->id;
-        $book->save();
-
-        return redirect('dashboard');
-        // return back()->with('message',"New Book Added!");
-    }
     private function validateRequest()
     {
         return request()->validate([
@@ -55,6 +40,25 @@ class BookController extends Controller
             'description' =>'string',
         ]);
     }
+    public function store(Request $request)
+    {
+        $book = Book::create($this->validateRequest());
+        if($request->file('book_cover'))
+        {
+            $file = $request->file('book_cover');
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('public/book_cover'), $filename);
+            $book->book_cover = $filename;
+        } else{
+            $book->book_cover = 'default.jpg';
+        }
+        $book->author_id = auth()->user()->id;
+        $book->save();
+
+        return redirect('dashboard');
+        // return back()->with('message',"New Book Added!");
+    }
+
     public function edit($id)
     {
         $book = Book::findorFail($id);
@@ -67,10 +71,14 @@ class BookController extends Controller
         $book->publisher = $request->publisher;
         $book->publication_year = $request->publication_year;
         $book->description = $request->description;
-        if($request->hasFile('book_cover'))
+        if($request->file('book_cover'))
         {
-            $book->book_cover = $request->file('book_cover')->store('book_cover', 'public');
+            $file = $request->file('book_cover');
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('public/book_cover'), $filename);
+            $book->book_cover = $filename;
         }
+
         $book->update();
 
         return back()->with('message',"Book has been Updated!");

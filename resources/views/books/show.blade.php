@@ -76,7 +76,7 @@
             </dl>
         </div>
         <div class="grid grid-cols-1">
-            <img src="{{asset('storage//'.$book->book_cover)}}" alt="{{$book->name}}" class="bg-gray-100 rounded-lg">
+            <img src="{{ url('public/book_cover/'.$book->book_cover) }}" alt="{{$book->name}}" class="bg-gray-100 rounded-lg">
         </div>
     </div>
 </div>
